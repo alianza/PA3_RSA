@@ -155,10 +155,14 @@ public class Controller implements Initializable {
 
     //Step 1 of Decryption: Generate d from e and n2
     private void step1_d() {
-        this.e = new BigInteger(tv_e_d.getText());
-        this.d = this.e.modInverse(this.n2); // Multiplicative inverse
-        log("d: " + this.d);
-        this.btn_step2_d.setDisable(false);
+        if (!this.tv_n_e.getText().isEmpty() || !this.tv_e_d.getText().isEmpty()) {
+            this.e = new BigInteger(tv_e_d.getText());
+            this.d = this.e.modInverse(this.n2); // Multiplicative inverse
+            log("d: " + this.d);
+            this.btn_step2_d.setDisable(false);
+        } else {
+            log("Missing n or e.");
+        }
     }
 
     //Step 2 of Decryption: Decrypt the message c
@@ -224,15 +228,19 @@ public class Controller implements Initializable {
         });
         tv_p_e.textProperty().addListener(((observable, oldValue, newValue) -> {
             tv_p_e.setText(numericOnlyFilter(newValue));
-            this.p = new BigInteger(tv_p_e.getText());
+            if (!tv_p_e.getText().isEmpty()) { this.p = new BigInteger(tv_p_e.getText()); }
         }));
         tv_q_e.textProperty().addListener(((observable, oldValue, newValue) -> {
             tv_q_e.setText(numericOnlyFilter(newValue));
-            this.q = new BigInteger(tv_q_e.getText());
+            if (!tv_q_e.getText().isEmpty()) { this.q = new BigInteger(tv_q_e.getText()); }
         }));
         tv_n_d.textProperty().addListener((observable, oldValue, newValue) -> {
             tv_n_d.setText(numericOnlyFilter(newValue));
             tv_n_e.setText(numericOnlyFilter(newValue));
+        });
+        tv_e_d.textProperty().addListener((observable, oldValue, newValue) -> {
+            tv_e_d.setText(numericOnlyFilter(newValue));
+            if (!tv_e_d.getText().isEmpty()) { this.e = new BigInteger(tv_e_d.getText()); }
         });
     }
 
