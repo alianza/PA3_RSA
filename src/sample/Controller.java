@@ -253,8 +253,8 @@ public class Controller implements Initializable {
     }
 
     private String lettersOnlyFilter(String newValue) {
-        if (!newValue.matches("\\D*")) {
-            return newValue.replaceAll("[^\\D]", "");
+        if (!newValue.matches("\\sa-zA-Z*")) {
+            return newValue.replaceAll("[^\\sa-zA-Z]", "");
         } else {
             return newValue;
         }
