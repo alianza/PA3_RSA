@@ -22,11 +22,8 @@
       <RowConstraints minHeight="10.0" prefHeight="200.0" />
       <RowConstraints />
    </rowConstraints>
-   <children>
       <SplitPane dividerPositions="0.5" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-        <items>
           <AnchorPane SplitPane.resizableWithParent="false">
-               <children>
                   <Label layoutX="2.0" layoutY="29.0" text="n">
                      <graphic>
                         <TextField fx:id="tv_n_e" promptText="Value of n" />
@@ -41,13 +38,21 @@
                         <TextField fx:id="tv_m_e" promptText="Value of m" />
                      </graphic>
                   </Label>
-               </children>
+                  <Label layoutX="2.0" layoutY="193.0" prefHeight="26.0" prefWidth="118.0" text="p">
+                     <graphic>
+                        <TextField fx:id="tv_p_e" prefHeight="25.0" prefWidth="99.0" promptText="Value of p" />
+                     </graphic>
+                  </Label>
+                  <Label layoutX="121.0" layoutY="193.0" prefHeight="26.0" prefWidth="117.0" text="q">
+                     <graphic>
+                        <TextField fx:id="tv_q_e" prefHeight="25.0" prefWidth="102.0" promptText="Value of q" />
+                     </graphic>
+                  </Label>
             </AnchorPane>
           <AnchorPane SplitPane.resizableWithParent="false">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-               <children>
                   <Label layoutX="2.0" layoutY="29.0" text="n">
                      <graphic>
                         <TextField fx:id="tv_n_d" promptText="Value of n" />
@@ -70,12 +75,9 @@
                      </graphic>
                   </Label>
                   <Button fx:id="btn_step2_d" disable="true" layoutX="2.0" layoutY="154.0" mnemonicParsing="false" text="Step 2" />
-               </children>
             </AnchorPane>
-        </items>
       </SplitPane>
       <TextArea fx:id="ta_console" editable="false" prefHeight="96.0" prefWidth="500.0" promptText="Output" GridPane.rowIndex="1" />
-   </children>
    <opaqueInsets>
       <Insets />
    </opaqueInsets>

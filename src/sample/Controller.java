@@ -19,15 +19,19 @@ public class Controller implements Initializable {
 
     // FXML Fields
     @FXML
-    public TextField tv_n_e;
-    @FXML
     public Button btn_step1_e;
     @FXML
     public Button btn_step2_e;
     @FXML
     public Button btn_step3_e;
     @FXML
+    public TextField tv_n_e;
+    @FXML
     public TextField tv_m_e;
+    @FXML
+    public TextField tv_p_e;
+    @FXML
+    public TextField tv_q_e;
     @FXML
     public TextField tv_n_d;
     @FXML
@@ -49,12 +53,12 @@ public class Controller implements Initializable {
         initList();
         addTextFieldListeners();
 
-        //Encryption
+        //Encryption steps
         btn_step1_e.setOnAction(event -> step1_e());
         btn_step2_e.setOnAction(event -> step2_e());
         btn_step3_e.setOnAction(event -> step3_e());
 
-        //Decryption
+        //Decryption steps
         btn_step1_d.setOnAction(event -> step1_d());
         btn_step2_d.setOnAction(event -> step2_d());
     }
@@ -84,6 +88,8 @@ public class Controller implements Initializable {
                 //The end of the algorithm, assign variables and log results
                 this.p = p;
                 this.q = q;
+                this.tv_p_e.setText(this.p.toString());
+                this.tv_q_e.setText(this.q.toString());
                 log("p: " + p);
                 log("q: " + q);
                 long endTime = System.nanoTime();
@@ -138,6 +144,7 @@ public class Controller implements Initializable {
 
             Character unencryptedChar = getCharacterByChar(character);
 
+            //Encryption
             int encryptedIndex = unencryptedChar.index.pow(this.e.intValue()).mod(this.n).intValue();
             encryptedMessage.add(encryptedIndex);
         }
@@ -156,14 +163,14 @@ public class Controller implements Initializable {
 
     //Step 2 of Decryption: Decrypt the message c
     private void step2_d() {
-        String message = tv_c_d.getText();
+        String c = tv_c_d.getText();
 
-        if (message.isEmpty()) {
+        if (c.isEmpty()) {
             log("Fill in message.");
             return;
         }
 
-        String[] EncryptedMessage = message
+        String[] EncryptedMessage = c
                 .replaceAll("\\[", "")
                 .replaceAll("]", "")
                 .replaceAll(" ", "")
@@ -173,8 +180,12 @@ public class Controller implements Initializable {
         List<java.lang.Character> decryptedText = new ArrayList<>();
 
         for (String encryptedIndex : EncryptedMessage) {
-            int decryptedIndex = BigInteger.valueOf(Integer.parseInt(encryptedIndex)).pow(this.d.intValue()).mod(this.n).intValue();
+            //Decryption
+            int decryptedIndex =
+                    BigInteger.valueOf(Integer.parseInt(encryptedIndex)).pow(this.d.intValue()).mod(this.n).intValue();
             decryptedMessage.add(decryptedIndex);
+
+            //Lookup indexes in characters
             if (!Objects.isNull(getCharacterByIndex(decryptedIndex))) {
                 decryptedText.add(getCharacterByIndex(decryptedIndex).character);
             } else {
@@ -182,7 +193,6 @@ public class Controller implements Initializable {
                 return;
             }
         }
-
         log("Message after decryption is: " + decryptedText.toString());
     }
 
@@ -212,6 +222,14 @@ public class Controller implements Initializable {
         tv_m_e.textProperty().addListener((observable, oldValue, newValue) -> {
             tv_m_e.setText(lettersOnlyFilter(newValue).toUpperCase());
         });
+        tv_p_e.textProperty().addListener(((observable, oldValue, newValue) -> {
+            tv_p_e.setText(numericOnlyFilter(newValue));
+            this.p = new BigInteger(tv_p_e.getText());
+        }));
+        tv_q_e.textProperty().addListener(((observable, oldValue, newValue) -> {
+            tv_q_e.setText(numericOnlyFilter(newValue));
+            this.q = new BigInteger(tv_q_e.getText());
+        }));
         tv_n_d.textProperty().addListener((observable, oldValue, newValue) -> {
             tv_n_d.setText(numericOnlyFilter(newValue));
             tv_n_e.setText(numericOnlyFilter(newValue));
