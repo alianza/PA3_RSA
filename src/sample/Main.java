@@ -1,13 +1,14 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.*;
+/**
+ * Author: Jan-Willem van Bremen 500779265
+ */
 
 public class Main extends Application {
 
@@ -18,7 +19,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 650, 450));
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

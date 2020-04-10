@@ -10,6 +10,10 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Author: Jan-Willem van Bremen 500779265
+ */
+
 public class Controller implements Initializable {
 
     static Scanner sc = new Scanner(System.in);
