@@ -175,7 +175,12 @@ public class Controller implements Initializable {
         for (String encryptedIndex : EncryptedMessage) {
             int decryptedIndex = BigInteger.valueOf(Integer.parseInt(encryptedIndex)).pow(this.d.intValue()).mod(this.n).intValue();
             decryptedMessage.add(decryptedIndex);
-            decryptedText.add(getCharacterByIndex(decryptedIndex).character);
+            if (!Objects.isNull(getCharacterByIndex(decryptedIndex))) {
+                decryptedText.add(getCharacterByIndex(decryptedIndex).character);
+            } else {
+                log("Error decrypting message.");
+                return;
+            }
         }
 
         log("Message after decryption is: " + decryptedText.toString());
